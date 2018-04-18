@@ -37,18 +37,18 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <!--<table schema="test" tableName="t_dining_student"-->
-               <!--domainObjectName="Student">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--</table>-->
+        <table schema="test" tableName="t_dining_student"
+               domainObjectName="Student">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
         <!--<table schema="test" tableName="t_dining_wallet"-->
                <!--domainObjectName="Wallet">-->
             <!--<property name="useActualColumnNames" value="true"/>-->
         <!--</table>-->
-        <table schema="test" tableName="t_dining_order"
-               domainObjectName="Order">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--<table schema="test" tableName="t_dining_order"-->
+               <!--domainObjectName="Order">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
         <!--<table schema="test" tableName="t_dining_menu"-->
                <!--domainObjectName="Menu">-->
             <!--<property name="useActualColumnNames" value="true"/>-->
