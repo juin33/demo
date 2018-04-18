@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables"    targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$" />
+            <property name="replaceString" value="Criteria" />
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+        <commentGenerator>
+            <property name="suppressDate" value="false" />
+            <property name="suppressAllComments" value="false" />
+        </commentGenerator>
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:Mysql://localhost:3306/test?characterEncoding=utf8" userId="root" password="" />
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.example.demo.dao" targetProject="MAVEN"><!-- src/generated/java -->
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="sqlmap" targetProject="MAVEN"> <!-- src/generated/resources -->
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.mapper" targetProject="MAVEN"> <!-- src/generated/java -->
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!--生成对应表及类名-->
+        <!--<table schema="test" tableName="t_dining_student"-->
+               <!--domainObjectName="Student">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table schema="test" tableName="t_dining_wallet"-->
+               <!--domainObjectName="Wallet">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <table schema="test" tableName="t_dining_order"
+               domainObjectName="Order">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--<table schema="test" tableName="t_dining_menu"-->
+               <!--domainObjectName="Menu">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

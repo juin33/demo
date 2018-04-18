@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="dataSourceTest" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close" >
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/test?characterEncoding=utf8&amp;allowMultiQueries=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+        <property name="initialSize" value="10"/>
+        <property name="maxActive" value="50"/>
+        <property name="maxIdle" value="10"/>
+        <property name="minIdle" value="5"/>
+        <property name="maxWait" value="600000"/>
+        <!-- 一个查询10分钟内没有返回，自动放弃 -->
+        <property name="validationQuery" value="SELECT 1"/>
+        <!-- 数据库连接可用性测试语句 -->
+        <property name="testOnBorrow" value="true"/>
+        <!-- 每次获取一个连接的时候，验证一下连接是否可用，语句在validationQuery里面 -->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 自动处理连接未关闭的问题，Setting this to true can recover db connections from poorly written applications which fail to close a connection.  -->
+        <property name="removeAbandonedTimeout" value="300"/>
+    </bean>
+
+    <bean id="transactionManagerTest" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceTest"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManagerTest"/>
+
+    <bean id="sqlSessionFactoryBasisdata" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceTest"/>
+        <property name="mapperLocations" value="classpath:sqlmap/**/*.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBasisdata"/>
+        <property name="basePackage" value="com.example.demo.mapper"/>
+    </bean>
+</beans>

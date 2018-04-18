@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.ext.WalletExtMapper" >
+
+  <resultMap id="BaseResultMap" type="com.example.demo.dao.Wallet" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="StudentId" property="studentId" jdbcType="INTEGER" />
+    <result column="Amount" property="amount" jdbcType="DECIMAL" />
+  </resultMap>
+
+ <select id="isWalletExistOrNot" resultType="java.lang.Integer">
+   SELECT Count(1) FROM t_dining_wallet WHERE StudentId =#{userId};
+ </select>
+
+</mapper>
