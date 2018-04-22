@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.dao.Student;
+import com.example.demo.service.ILoginService;
 import com.example.demo.service.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 public class DiningController{
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ILoginService loginService;
+
+   private static final Logger logger = LoggerFactory.getLogger(DiningController.class);
 
     /**
      * 增加菜单
@@ -44,12 +51,10 @@ public class DiningController{
         return orderService.order(orderMenus);
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    @CrossOrigin
-    public Student login(){
-        Student student = new Student();
-        student.setName("admin");
-        student.setPassword("123456");
-        return student;
+
+
+    @RequestMapping(value = "/hello",method = RequestMethod.GET)
+    public String hello(){
+        return "success";
     }
 }
