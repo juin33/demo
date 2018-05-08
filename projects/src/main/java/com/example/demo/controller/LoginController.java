@@ -51,4 +51,11 @@ public class LoginController {
         return RetResponse.makeOKRsp(pageInfo);
     }
 
+    @RequestMapping(value = "/selectById/{id}",method = RequestMethod.GET)
+    @CrossOrigin
+    public RetResult<Student> selectById(@PathVariable Integer id){
+        Student student = loginService.selectById(id);
+        return RetResponse.makeOKRsp(student);
+    }
+
 }

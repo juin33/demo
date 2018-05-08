@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.controller.DiningController;
 import com.example.demo.dao.Student;
 import com.example.demo.dao.StudentCriteria;
+import com.example.demo.exception.ServiceException;
 import com.example.demo.mapper.StudentMapper;
 import com.example.demo.mapper.ext.StudentExtMapper;
 import com.example.demo.service.ILoginService;
@@ -56,4 +57,14 @@ public class LoginServiceImpl implements ILoginService{
         PageInfo<Student> pageInfo = new PageInfo<>(userInfoList);
         return pageInfo;
     }
+
+    @Override
+    public Student selectById(Integer id) {
+        Student student = studentMapper.selectByPrimaryKey(id);
+        if(null == student){
+            throw new ServiceException("用户表不存在该用户");
+        }
+        return student;
+    }
+
 }

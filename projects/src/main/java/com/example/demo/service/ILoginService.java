@@ -8,4 +8,6 @@ public interface ILoginService {
    Result<Student> login(String data);
 
    PageInfo<Student> selectAll(Integer page, Integer size);
+
+   Student selectById(Integer id);
 }
