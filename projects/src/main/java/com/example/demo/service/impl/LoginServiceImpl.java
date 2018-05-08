@@ -5,8 +5,11 @@ import com.example.demo.controller.DiningController;
 import com.example.demo.dao.Student;
 import com.example.demo.dao.StudentCriteria;
 import com.example.demo.mapper.StudentMapper;
+import com.example.demo.mapper.ext.StudentExtMapper;
 import com.example.demo.service.ILoginService;
 import com.example.demo.support.Result;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class LoginServiceImpl implements ILoginService{
 
     @Autowired
     private StudentMapper studentMapper;
+
+    @Autowired
+    private StudentExtMapper studentExtMapper;
 
     @Override
     public Result<Student> login(String data) {
@@ -39,5 +45,15 @@ public class LoginServiceImpl implements ILoginService{
             }
         }
         return result;
+    }
+
+    @Override
+    public PageInfo<Student> selectAll(Integer page, Integer size) {
+        //开启分页查询，写在查询语句上方
+        //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页。
+        PageHelper.startPage(page, size);
+        List<Student> userInfoList = studentExtMapper.selectAll();
+        PageInfo<Student> pageInfo = new PageInfo<>(userInfoList);
+        return pageInfo;
     }
 }

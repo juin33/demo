@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.ext.StudentExtMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.dao.Student" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Age" property="age" jdbcType="INTEGER" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="LastUpdateDate" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from t_dining_student
+  </select>
+
+</mapper>

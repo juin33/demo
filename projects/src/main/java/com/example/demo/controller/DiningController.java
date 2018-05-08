@@ -3,6 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.dao.Student;
 import com.example.demo.service.ILoginService;
 import com.example.demo.service.OrderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/dr")
+@Api(tags = {"用户订单接口"}, description = "DiningController")
 public class DiningController{
     @Autowired
     private OrderService orderService;
@@ -24,6 +29,11 @@ public class DiningController{
      * @param addMenus
      * @return
      */
+    @ApiOperation(value = "增加菜单", notes = "增加菜单接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "data", value = "增加菜单", required = true,
+                    dataType = "String", paramType = "add")
+    })
     @RequestMapping(value = "/addMenu", method = RequestMethod.POST)
     public String addMenu(@RequestParam(value = "addMenus") String addMenus) {
         return orderService.addMenu(addMenus);
