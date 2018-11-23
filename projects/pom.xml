@@ -177,6 +177,36 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
+        <!--baidu api-->
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <!--分布式锁+限流器-->
+        <dependency>
+            <groupId>site.higgs</groupId>
+            <artifactId>limiter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/libs/limiter-1.0-SNAPSHOT.jar</systemPath>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--redisson-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.5.4</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -184,6 +214,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
