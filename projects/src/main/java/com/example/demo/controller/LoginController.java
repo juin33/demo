@@ -17,6 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/dr")
 @Api(tags = {"用户操作接口"}, description = "loginController")
@@ -35,6 +39,27 @@ public class LoginController {
     public ResponseEntity<Object> login(@RequestBody String data){
         return new ResponseEntity<Object>( loginService.login(data), HttpStatus.OK);
     }
+
+    @RequestMapping("/login1")
+    public String login(HttpSession session, HttpServletRequest request) {
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        HashMap<Object, Object> userInfo = new HashMap<>(16);
+        userInfo.put("id", id);
+        userInfo.put("name", name);
+        session.setAttribute("USER_INFO", userInfo);
+        return userInfo + "  成功存储到会话中";
+    }
+
+    @RequestMapping("/getUserInfo")
+    public String getUserInfo(HttpSession session, HttpServletRequest request) {
+        Object user_info = session.getAttribute("USER_INFO");
+        if (user_info == null) {
+            return "请先登录,再读取会话数据";
+        }
+        return "从会话中读取数据 " + user_info;
+    }
+
 
     @ApiOperation(value = "查询用户", notes = "分页查询用户所有")
     @ApiImplicitParams({
