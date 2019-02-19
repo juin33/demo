@@ -7,7 +7,7 @@ package com.example.demo.design.singleton;
  */
 public class SingleObjectDemo {
     public static void main(String[] args) {
-        SingleObject singleObject = SingleObject.getInstance();
+        SingleObject2 singleObject = SingleObject2.getInstance();
         singleObject.showMessage();
     }
 }
