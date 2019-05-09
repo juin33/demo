@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -58,6 +59,18 @@ public class LoginController {
             return "请先登录,再读取会话数据";
         }
         return "从会话中读取数据 " + user_info;
+    }
+
+    /**
+     * 无参数的重定向
+     * @return
+     */
+    @RequestMapping("/redirect/noparams")
+    public RedirectView redirectView(){
+        RedirectView redirectView = new RedirectView();
+        redirectView.setContextRelative(true);
+        redirectView.setUrl("http://www.baidu.com");
+        return redirectView;
     }
 
 
