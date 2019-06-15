@@ -18,7 +18,7 @@
         </commentGenerator>
 
         <!--数据库链接地址账号密码-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:Mysql://localhost:3306/test?characterEncoding=utf8" userId="root" password="" />
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:Mysql://localhost:3306/test?characterEncoding=utf8" userId="root" password="123456" />
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -37,10 +37,10 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table schema="test" tableName="t_dining_student"
-               domainObjectName="Student">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--<table schema="test" tableName="t_dining_student"-->
+               <!--domainObjectName="Student">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
         <!--<table schema="test" tableName="t_dining_wallet"-->
                <!--domainObjectName="Wallet">-->
             <!--<property name="useActualColumnNames" value="true"/>-->
@@ -53,5 +53,13 @@
                <!--domainObjectName="Menu">-->
             <!--<property name="useActualColumnNames" value="true"/>-->
         <!--</table>-->
+        <table schema="test" tableName="t_assets"
+               domainObjectName="Assents">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table schema="test" tableName="t_liabilities"
+               domainObjectName="Liabilities">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
     </context>
 </generatorConfiguration>
