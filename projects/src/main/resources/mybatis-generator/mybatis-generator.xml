@@ -53,12 +53,17 @@
                <!--domainObjectName="Menu">-->
             <!--<property name="useActualColumnNames" value="true"/>-->
         <!--</table>-->
-        <table schema="test" tableName="t_assets"
-               domainObjectName="Assents">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-        <table schema="test" tableName="t_liabilities"
-               domainObjectName="Liabilities">
+        <!--<table schema="test" tableName="t_assets"-->
+               <!--domainObjectName="Assents">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table schema="test" tableName="t_liabilities"-->
+               <!--domainObjectName="Liabilities">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+        <table schema="test" tableName="t_profit"
+               domainObjectName="Profit">
             <property name="useActualColumnNames" value="true"/>
         </table>
     </context>

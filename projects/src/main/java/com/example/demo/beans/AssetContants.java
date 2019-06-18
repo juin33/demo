@@ -24,7 +24,15 @@ public enum AssetContants {
     BC_22("负债合计","total_liabilities"),BC_23("实收资本(或股本)","paicl_up_capital"),BC_24("资本公积","capital_reserve"),
     BC_25("减：库存股","treasury_stock"),BC_26("盈余公积","earned_surplus"),BC_27("未分配利润","undistributed_profit"),
     BC_28("归属于母公司所有者权益合计","equity_attributable_parent_company"),BC_29("少数股东权益","minority_equity"),BC_30("股东权益合计","total_shareholders_equity"),
-    BC_31("负债及股东权益总计","total_liabilities_shareholders_equity");
+    BC_31("负债及股东权益总计","total_liabilities_shareholders_equity"),
+
+    PR_01("营业收入","operating_income"),PR_02("营业成本","operating_costs"),PR_03("营业税金及附加","business_tax_and_surcharges"),
+    PR_04("销售费用","selling_expenses"),PR_05("管理费用","manage_expenses"),PR_06("财务费用","financial_expense"),
+    PR_07("资产减值损失","assets_impairment_loss"),PR_08("公允价值变动净收益","changes_in_fair_net_income"),PR_09("投资收益","investment_income"),
+    PR_10("对联营企业和合营企业的投资收益","investment_joint_ventures_income"),PR_11("营业利润","operating_profit"),PR_12("营业外收入","operating_outer_income"),
+    PR_13("非流动资产处置净损失","no_current_assent_loss"),PR_14("利润总额","total_profit"),PR_15("所得税费用","tax_cost"),
+    PR_16("净利润","retained_profits"),PR_17("归属于母公司所有者的净利润","retained_profits_parent_company"),PR_18("少数股东损益","minority_interest_income"),
+    PR_19("每股收益","earnings_per_share"),PR_20("基本每股收益","earnings_per_share_basic"),PR_21("稀释每股收益","earnings_per_share_attenuation");
 
     private String code;
     private String msg;

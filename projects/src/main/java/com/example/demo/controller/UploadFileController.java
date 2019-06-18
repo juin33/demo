@@ -7,8 +7,10 @@ import com.example.demo.core.RetResult;
 import com.example.demo.core.utils.UploadActionUtil;
 import com.example.demo.dao.Assents;
 import com.example.demo.dao.Liabilities;
+import com.example.demo.dao.Profit;
 import com.example.demo.mapper.AssentsMapper;
 import com.example.demo.mapper.LiabilitiesMapper;
+import com.example.demo.mapper.ProfitMapper;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
@@ -47,6 +49,8 @@ public class UploadFileController {
     private AssentsMapper assentsMapper;
     @Autowired
     private LiabilitiesMapper liabilitiesMapper;
+    @Autowired
+    private ProfitMapper profitMapper;
 
     private final static Logger logger = LoggerFactory.getLogger(UploadFileController.class);
 
@@ -69,12 +73,37 @@ public class UploadFileController {
 
     }
 
-    private void doSheet2(HSSFWorkbook book){
+    private void doSheet2(HSSFWorkbook book) throws ParseException {
+        HSSFSheet sheet = book.getSheetAt(1);
+        if(null == sheet) return;
+        Profit profit = new Profit();
+        HashMap<String,Double> profitMap = new HashMap<>();
 
+        for (int i = 5; i < sheet.getLastRowNum()+1; i++) {
+            HSSFRow row = sheet.getRow(i);
+            //资产
+            if (null != row && null != row.getCell(0)) {
+                String key = row.getCell(0).getStringCellValue().replaceAll("\\s*", "");
+                try {
+                    if (StringUtils.isNotBlank(key))
+                        profitMap.put(key, row.getCell(3).getNumericCellValue());
+                } catch (Exception e) {
+                    logger.error("error:{}", e);
+                }
+            }
+        }
+        String month = sheet.getRow(1).getCell(0).getStringCellValue().replace("年度","");
+        String orgName = sheet.getRow(3).getCell(0).getStringCellValue();
+        profit = saveProfitResult(profitMap,profit);
+        profit.setOrg_name(orgName);
+        profit.setMonth(month);
+        profitMapper.insertSelective(profit);
+        logger.info("导入利润表成功");
     }
 
     private void doSheet1(HSSFWorkbook book) throws ParseException {
         HSSFSheet sheet = book.getSheetAt(0);
+        if(null == sheet) return;
         Assents preAssent = new Assents();
         Assents aftAssent = new Assents();
         Liabilities preLiabs = new Liabilities();
@@ -224,6 +253,31 @@ public class UploadFileController {
         liabilities.setTotal_liabilities_shareholders_equity(changeNum(map.get(AssetContants.BC_31.getMsg())));
         logger.info("liabilities:{}",JSONObject.toJSONString(liabilities));
         return liabilities;
+    }
+
+    private Profit saveProfitResult(HashMap<String,Double> map,Profit profit){
+        profit.setOperating_income(changeNum(map.get(AssetContants.PR_01.getMsg())));
+        profit.setOperating_costs(changeNum(map.get(AssetContants.PR_02.getMsg())));
+        profit.setBusiness_tax_and_surcharges(changeNum(map.get(AssetContants.PR_03.getMsg())));
+        profit.setSelling_expenses(changeNum(map.get(AssetContants.PR_04.getMsg())));
+        profit.setManage_expenses(changeNum(map.get(AssetContants.PR_05.getMsg())));
+        profit.setFinancial_expense(changeNum(map.get(AssetContants.PR_06.getMsg())));
+        profit.setAssets_impairment_loss(changeNum(map.get(AssetContants.PR_07.getMsg())));
+        profit.setChanges_in_fair_net_income(changeNum(map.get(AssetContants.PR_08.getMsg())));
+        profit.setInvestment_income(changeNum(map.get(AssetContants.PR_09.getMsg())));
+        profit.setInvestment_joint_ventures_income(changeNum(map.get(AssetContants.PR_10.getMsg())));
+        profit.setOperating_profit(changeNum(map.get(AssetContants.PR_11.getMsg())));
+        profit.setOperating_outer_income(changeNum(map.get(AssetContants.PR_12.getMsg())));
+        profit.setNo_current_assent_loss(changeNum(map.get(AssetContants.PR_13.getMsg())));
+        profit.setTotal_profit(changeNum(map.get(AssetContants.PR_14.getMsg())));
+        profit.setTax_cost(changeNum(map.get(AssetContants.PR_15.getMsg())));
+        profit.setRetained_profits(changeNum(map.get(AssetContants.PR_16.getMsg())));
+        profit.setRetained_profits_parent_company(changeNum(map.get(AssetContants.PR_17.getMsg())));
+        profit.setMinority_interest_income(changeNum(map.get(AssetContants.PR_18.getMsg())));
+        profit.setEarnings_per_share(changeNum(map.get(AssetContants.PR_19.getMsg())));
+        profit.setEarnings_per_share_basic(changeNum(map.get(AssetContants.PR_20.getMsg())));
+        profit.setEarnings_per_share_attenuation(changeNum(map.get(AssetContants.PR_21.getMsg())));
+        return profit;
     }
 
 }
