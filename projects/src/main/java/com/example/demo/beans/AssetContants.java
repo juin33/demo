@@ -32,7 +32,22 @@ public enum AssetContants {
     PR_10("对联营企业和合营企业的投资收益","investment_joint_ventures_income"),PR_11("营业利润","operating_profit"),PR_12("营业外收入","operating_outer_income"),
     PR_13("非流动资产处置净损失","no_current_assent_loss"),PR_14("利润总额","total_profit"),PR_15("所得税费用","tax_cost"),
     PR_16("净利润","retained_profits"),PR_17("归属于母公司所有者的净利润","retained_profits_parent_company"),PR_18("少数股东损益","minority_interest_income"),
-    PR_19("每股收益","earnings_per_share"),PR_20("基本每股收益","earnings_per_share_basic"),PR_21("稀释每股收益","earnings_per_share_attenuation");
+    PR_19("每股收益","earnings_per_share"),PR_20("基本每股收益","earnings_per_share_basic"),PR_21("稀释每股收益","earnings_per_share_attenuation"),
+
+    FW_01("经营活动产生的现金流量","cash_flow_from_operating_activities"),FW_02("销售商品、提供劳务收到的现金","selling_goods_and_providing_services_cash"),FW_03("收到的税费返还","refun_of_tax_levies"),
+    FW_04("收到其他与经营活动有关的现金","other_cash_related_operating_activities"),FW_05("经营活动现金流入小计","cash_inflows_operating_activities"),FW_06("购买商品、接受劳务支付的现金","cash_payment_for_goods_and_services"),
+    FW_07("支付给职工以及为职工支付的现金","cash_paid_employees"),FW_08("支付的各项税费","tax_payments"),FW_09("支付其他与经营活动有关的现金","payment_other_cash_related_business_activities"),
+    FW_10("经营活动现金流出小计","cash_outflow_operating_activities"),FW_11("经营活动产生的现金流量净额","net_cash_flow_from_operating_activities"),FW_12("投资活动产生的现金流量","cash_flow_from_investment_activities"),
+    FW_13("收回投资收到的现金","proceeds_from_sell_of_investment"),FW_14("取得投资收益收到的现金","cash_received_on_investment_income"),FW_15("处置固定资产、无形资产和其他长期资产收回的现金净额","net_cash_fixed_intangible_other_long_term_assets"),
+    FW_16("处置子公司及其他营业单位收到的现金净额","net_cash_by_subsidiaries_and_other_business_units"),FW_17("收到其他与投资活动有关的现金","other_cash_related_to_investment_activities"),FW_18("投资活动现金流入小计","cash_inflow_from_investment_activities"),
+    FW_19("购建固定资产、无形资产和其他长期资产支付的现金","cash_paid_fixed_intangible_other_long_term_assets"),FW_20("投资支付的现金","cash_paid_for_investment"),FW_21("取得子公司及其他营业单位支付的现金净额","net_cash_paid_by_subsidiaries_and_other_business_units"),
+    FW_22("支付其他与投资活动有关的现金","pay_other_cash_related_to_investment_activities"),FW_23("投资活动现金流出小计","cash_outflow_for_investment_activities"),FW_24("投资活动产生的现金流量净额","net_cash_flow_from_investment_activities"),
+    FW_25("筹资活动产生的现金流量","cash_flow_from_fundraising_activities"),FW_26("吸收投资收到的现金","receipts_equity_securities"),FW_27("子公司吸收少数股东投资收到的现金","subsidiaries_receive_cash_from_minority_investors"),
+    FW_28("取得借款收到的现金","receipts_from_loan"),FW_29("收到其他与筹资活动有关的现金","receipt_of_other_cash_related_fund_raising_activities"),FW_30("筹资活动现金流入小计","cash_inflow_from_financing_activities"),
+    FW_31("偿还债务支付的现金","payment_for_debt"),FW_32("分配股利、利润或偿付利息支付的现金","cash_to_distribute_dividends_or_pay_interest"),FW_33("子公司支付给少数股东的股利、利润","dividends_paid_by_subsidiary_to_minority_shareholders"),
+    FW_34("支付其他与筹资活动有关的现金","payment_of_other_cash_related_fund_raising_activities"),FW_35("筹资活动现金流出小计","cash_outflow_financing_activities"),FW_36("筹资活动产生的现金流量净额","net_cash_flow_from_financing_activities"),
+    FW_37("汇率变动对现金及现金等价物的影响","effect_of_exchange_rate_and_cash_equivalents"),FW_38("现金及现金等价物净增加额","net_increase_in_cash_and_cash_equivalents"),FW_39("期初现金及现金等价物余额","beginning_balance_cash_and_cash_equivalents"),
+    FW_40("期末现金及现金等价物余额","ending_balance_cash_and_cash_equivalents");
 
     private String code;
     private String msg;
