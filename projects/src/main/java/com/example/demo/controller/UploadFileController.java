@@ -6,9 +6,11 @@ import com.example.demo.core.RetResponse;
 import com.example.demo.core.RetResult;
 import com.example.demo.core.utils.UploadActionUtil;
 import com.example.demo.dao.Assents;
+import com.example.demo.dao.Flow;
 import com.example.demo.dao.Liabilities;
 import com.example.demo.dao.Profit;
 import com.example.demo.mapper.AssentsMapper;
+import com.example.demo.mapper.FlowMapper;
 import com.example.demo.mapper.LiabilitiesMapper;
 import com.example.demo.mapper.ProfitMapper;
 import com.google.common.collect.Lists;
@@ -51,6 +53,8 @@ public class UploadFileController {
     private LiabilitiesMapper liabilitiesMapper;
     @Autowired
     private ProfitMapper profitMapper;
+    @Autowired
+    private FlowMapper flowMapper;
 
     private final static Logger logger = LoggerFactory.getLogger(UploadFileController.class);
 
@@ -70,7 +74,41 @@ public class UploadFileController {
     }
 
     private void doSheet3(HSSFWorkbook book){
+        HSSFSheet sheet = book.getSheetAt(2);
+        if(null == sheet) return;
+        Flow flow = new Flow();
+        HashMap<String,Double> profitMap = new HashMap<>();
 
+        for (int i = 8; i < sheet.getLastRowNum()+1; i++) {
+            HSSFRow row = sheet.getRow(i);
+            //流量
+            if (null != row && null != row.getCell(0)) {
+                String key = row.getCell(0).getStringCellValue().replaceAll("\\s*", "");
+                try {
+                    if (StringUtils.isNotBlank(key))
+                        profitMap.put(key, row.getCell(3).getNumericCellValue());
+                } catch (Exception e) {
+                    logger.error("error:{}", e);
+                }
+            }
+
+            if (null != row && null != row.getCell(9)) {
+                String key = row.getCell(9).getStringCellValue().replaceAll("\\s*", "");
+                try {
+                    if (StringUtils.isNotBlank(key))
+                        profitMap.put(key, row.getCell(11).getNumericCellValue());
+                } catch (Exception e) {
+                    logger.error("error:{}", e);
+                }
+            }
+        }
+        String month = sheet.getRow(1).getCell(0).getStringCellValue().replace("年度","");
+        String orgName = sheet.getRow(3).getCell(0).getStringCellValue();
+        flow = saveFlowResult(profitMap,flow);
+        flow.setOrg_name(orgName);
+        flow.setMonth(month);
+        flowMapper.insertSelective(flow);
+        logger.info("导入流量表成功");
     }
 
     private void doSheet2(HSSFWorkbook book) throws ParseException {
@@ -92,8 +130,8 @@ public class UploadFileController {
                 }
             }
         }
-        String month = sheet.getRow(1).getCell(0).getStringCellValue().replace("年度","");
-        String orgName = sheet.getRow(3).getCell(0).getStringCellValue();
+        String month = sheet.getRow(3).getCell(0).getStringCellValue().replace("年度","");
+        String orgName = sheet.getRow(5).getCell(0).getStringCellValue();
         profit = saveProfitResult(profitMap,profit);
         profit.setOrg_name(orgName);
         profit.setMonth(month);
@@ -280,5 +318,47 @@ public class UploadFileController {
         return profit;
     }
 
-
+    private Flow saveFlowResult(HashMap<String,Double> map,Flow flow){
+        flow.setCash_flow_from_operating_activities(changeNum(map.get(AssetContants.FW_01.getMsg())));
+        flow.setSelling_goods_and_providing_services_cash(changeNum(map.get(AssetContants.FW_02.getMsg())));
+        flow.setRefun_of_tax_levies(changeNum(map.get(AssetContants.FW_03.getMsg())));
+        flow.setOther_cash_related_operating_activities(changeNum(map.get(AssetContants.FW_04.getMsg())));
+        flow.setCash_inflows_operating_activities(changeNum(map.get(AssetContants.FW_05.getMsg())));
+        flow.setCash_payment_for_goods_and_services(changeNum(map.get(AssetContants.FW_06.getMsg())));
+        flow.setCash_paid_employees(changeNum(map.get(AssetContants.FW_07.getMsg())));
+        flow.setTax_payments(changeNum(map.get(AssetContants.FW_08.getMsg())));
+        flow.setPayment_other_cash_related_business_activities(changeNum(map.get(AssetContants.FW_09.getMsg())));
+        flow.setCash_outflow_operating_activities(changeNum(map.get(AssetContants.FW_10.getMsg())));
+        flow.setNet_cash_flow_from_operating_activities(changeNum(map.get(AssetContants.FW_11.getMsg())));
+        flow.setCash_flow_from_investment_activities(changeNum(map.get(AssetContants.FW_12.getMsg())));
+        flow.setProceeds_from_sell_of_investment(changeNum(map.get(AssetContants.FW_13.getMsg())));
+        flow.setCash_received_on_investment_income(changeNum(map.get(AssetContants.FW_14.getMsg())));
+        flow.setNet_cash_fixed_intangible_other_long_term_assets(changeNum(map.get(AssetContants.FW_15.getMsg())));
+        flow.setNet_cash_by_subsidiaries_and_other_business_units(changeNum(map.get(AssetContants.FW_16.getMsg())));
+        flow.setOther_cash_related_to_investment_activities(changeNum(map.get(AssetContants.FW_17.getMsg())));
+        flow.setCash_inflow_from_investment_activities(changeNum(map.get(AssetContants.FW_18.getMsg())));
+        flow.setCash_paid_fixed_intangible_other_long_term_assets(changeNum(map.get(AssetContants.FW_19.getMsg())));
+        flow.setCash_paid_for_investment(changeNum(map.get(AssetContants.FW_20.getMsg())));
+        flow.setNet_cash_paid_by_subsidiaries_and_other_business_units(changeNum(map.get(AssetContants.FW_21.getMsg())));
+        flow.setPay_other_cash_related_to_investment_activities(changeNum(map.get(AssetContants.FW_22.getMsg())));
+        flow.setCash_outflow_for_investment_activities(changeNum(map.get(AssetContants.FW_23.getMsg())));
+        flow.setNet_cash_flow_from_investment_activities(changeNum(map.get(AssetContants.FW_24.getMsg())));
+        flow.setCash_flow_from_fundraising_activities(changeNum(map.get(AssetContants.FW_25.getMsg())));
+        flow.setReceipts_equity_securities(changeNum(map.get(AssetContants.FW_26.getMsg())));
+        flow.setSubsidiaries_receive_cash_from_minority_investors(changeNum(map.get(AssetContants.FW_27.getMsg())));
+        flow.setReceipts_from_loan(changeNum(map.get(AssetContants.FW_28.getMsg())));
+        flow.setReceipt_of_other_cash_related_fund_raising_activities(changeNum(map.get(AssetContants.FW_29.getMsg())));
+        flow.setCash_inflow_from_financing_activities(changeNum(map.get(AssetContants.FW_30.getMsg())));
+        flow.setPayment_for_debt(changeNum(map.get(AssetContants.FW_31.getMsg())));
+        flow.setCash_to_distribute_dividends_or_pay_interest(changeNum(map.get(AssetContants.FW_32.getMsg())));
+        flow.setDividends_paid_by_subsidiary_to_minority_shareholders(changeNum(map.get(AssetContants.FW_33.getMsg())));
+        flow.setPayment_of_other_cash_related_fund_raising_activities(changeNum(map.get(AssetContants.FW_34.getMsg())));
+        flow.setCash_outflow_financing_activities(changeNum(map.get(AssetContants.FW_35.getMsg())));
+        flow.setNet_cash_flow_from_financing_activities(changeNum(map.get(AssetContants.FW_36.getMsg())));
+        flow.setEffect_of_exchange_rate_and_cash_equivalents(changeNum(map.get(AssetContants.FW_37.getMsg())));
+        flow.setNet_increase_in_cash_and_cash_equivalents(changeNum(map.get(AssetContants.FW_38.getMsg())));
+        flow.setBeginning_balance_cash_and_cash_equivalents(changeNum(map.get(AssetContants.FW_39.getMsg())));
+        flow.setEnding_balance_cash_and_cash_equivalents(changeNum(map.get(AssetContants.FW_40.getMsg())));
+        return flow;
+    }
 }

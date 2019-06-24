@@ -18,7 +18,7 @@
         </commentGenerator>
 
         <!--数据库链接地址账号密码-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:Mysql://localhost:3306/test?characterEncoding=utf8" userId="root" password="123456" />
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:Mysql://localhost:3306/test?characterEncoding=utf8" userId="root" password="" />
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -62,8 +62,13 @@
             <!--<property name="useActualColumnNames" value="true"/>-->
         <!--</table>-->
 
-        <table schema="test" tableName="t_profit"
-               domainObjectName="Profit">
+        <!--<table schema="test" tableName="t_profit"-->
+               <!--domainObjectName="Profit">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+        <table schema="test" tableName="t_flow"
+               domainObjectName="Flow">
             <property name="useActualColumnNames" value="true"/>
         </table>
     </context>
