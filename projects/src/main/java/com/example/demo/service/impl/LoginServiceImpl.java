@@ -49,7 +49,7 @@ public class LoginServiceImpl implements ILoginService{
     }
 
     @Override
-    public PageInfo<Student> selectAll(Integer page, Integer size) {
+    public PageInfo<Student> selectAll(Integer page, Integer size,String msg,Student student) {
         //开启分页查询，写在查询语句上方
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页。
         PageHelper.startPage(page, size);

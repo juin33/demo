@@ -269,6 +269,12 @@
             <version>3.8.1</version>
         </dependency>
 
+        <!--bloomfilter依赖 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
 
     </dependencies>
 

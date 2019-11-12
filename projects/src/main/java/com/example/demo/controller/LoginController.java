@@ -85,7 +85,10 @@ public class LoginController {
     @CrossOrigin
     public RetResult<PageInfo<Student>> selectAll(@RequestParam(defaultValue = "0") Integer page,
                                                   @RequestParam(defaultValue = "0") Integer size) {
-        PageInfo<Student> pageInfo = loginService.selectAll(page, size);
+        Student student = new Student();
+        student.setId(1);
+        student.setName("tom");
+        PageInfo<Student> pageInfo = loginService.selectAll(page, size,"123456",student);
         return RetResponse.makeOKRsp(pageInfo);
     }
 

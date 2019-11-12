@@ -1,5 +1,6 @@
 package com.example.demo.service.aspect;
 
+import com.example.demo.dao.Student;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,9 +29,16 @@ public class LoginServiceFilter {
         Object[] args = proceedingJoinPoint.getArgs();
         String methodName = proceedingJoinPoint.getSignature().getName();
         Object result = proceedingJoinPoint.proceed();
+        Integer page = (Integer) args[0];
+        Integer size = (Integer) args[1];
+        String msg = (String) args[2];
+        Student student = (Student) args[3];
         logger.info("args:{}",args);
+        logger.info("page:{}",page);
+        logger.info("msg:{}",msg);
         logger.info("methodName:{}",methodName);
         logger.info("result:{}",result);
+        logger.info("student:{}",student.getId());
         return result;
     }
 

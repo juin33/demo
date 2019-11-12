@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 public interface ILoginService {
    Result<Student> login(String data);
 
-   PageInfo<Student> selectAll(Integer page, Integer size);
+   PageInfo<Student> selectAll(Integer page, Integer size,String msg,Student student);
 
    Student selectById(Integer id);
 }
