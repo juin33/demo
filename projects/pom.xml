@@ -276,6 +276,13 @@
             <version>23.0</version>
         </dependency>
 
+        <!--百度云-->
+        <dependency>
+            <groupId>com.baidubce</groupId>
+            <artifactId>bce-java-sdk</artifactId>
+            <version>0.10.36</version>
+        </dependency>
+
     </dependencies>
 
     <build>
