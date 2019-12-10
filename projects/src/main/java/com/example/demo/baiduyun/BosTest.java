@@ -32,7 +32,7 @@ public class BosTest {
     private static final String ep2 = "dashu-ocr-img.su.bcebos.com";
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         String ACCESS_KEY_ID = ak2;                   // 用户的Access Key ID
         String SECRET_ACCESS_KEY = sk2;           // 用户的Secret Access Key
 
@@ -47,6 +47,7 @@ public class BosTest {
 //        generatePresignedUrl(client,"ocr-test2","img",1000);
 //        getFile("ocr-test2","img",client);
         listObjects(client,"ocr-test2");
+        getObject(client,"ocr-test2","img");
 //        BceCredentials credentials = new DefaultBceCredentials(ACCESS_KEY_ID, SECRET_ACCESS_KEY);
 //        StsClient client = new StsClient(
 //                new BceClientConfiguration().withEndpoint(ep2).withCredentials(credentials)
@@ -344,7 +345,7 @@ public class BosTest {
 
         // 获取Object的输入流
         InputStream objectContent = object.getObjectContent();
-
+        System.out.println(objectContent);
         // 处理Object
         //...
 
